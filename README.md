@@ -24,7 +24,7 @@ Usage: ./service-clone.sh [OPTIONS]
 List of available options
   -s, --src SERVICE_ID    [required] source service ID
   -d, --dst SERVICE_ID    [required] destinatuon service ID
-  -v, --version VERSION   (optional) source version numver (default: the current active version)
+  -v, --version VERSION   (optional) source version number (default: the current active version)
   --no-logging            (optional) exclude logging settings (default: include)
   --no-acl                (optional) exclude acl (default: include)
   --no-dictionary         (optional) exclude dictionry (default: include)

@@ -18,7 +18,7 @@ usage () {
     echo "List of available options"
     echo "  -s, --src SERVICE_ID    [required] source service ID"
     echo "  -d, --dst SERVICE_ID    [required] destinatuon service ID"
-    echo "  -v, --version VERSION   (optional) source version numver (default: the current active version)"
+    echo "  -v, --version VERSION   (optional) source version number (default: the current active version)"
     echo "  --no-logging            (optional) exclude logging settings (default: include)"
     echo "  --no-acl                (optional) exclude acl (default: include)"
     echo "  --no-dictionary         (optional) exclude dictionry (default: include)"
