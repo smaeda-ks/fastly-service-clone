@@ -44,3 +44,14 @@ Need more help? Visit: https://github.com/smaeda-ks/fastly-service-clone
 ```sh
 $ ./service-clone.sh -s ${source_service_id} -d ${destination_service_id}
 ```
+
+# Limitations
+
+This tool does not copy over the following part of service settings.
+
+1. custom pragma settings
+2. custom service limit (e.g., max domains, backends, etc)
+3. Image Optimizer settings (IO needs to be explicitly enabled on the destination service as well)
+4. WAF settings (WAF needs to be explicitly enabled on the destination service as well)
+
+If you need to retain those settings please ask Fastly Support for further assistance.
