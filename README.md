@@ -3,19 +3,25 @@ A shell script to copy service settings to another service.
 
 # Usage
 
-### Setup
+## Setup
 
-Open `service-clone.sh` file and replace `your_api_token` with your API token.
+### Prerequisites
+
+This script requires at least `curl` and `jq` commands to be available on your machine.
+
+### API Token
+
+Please set `FASTLY_API_TOKEN` environment variable with your API token.
 
 ```sh
-readonly API_TOKEN='your_api_token'
+export FASTLY_API_TOKEN="your_api_token"
 ```
 
-```
+```sh
 $ chmod +x ./service-clone.sh
 ```
 
-### Help
+## Help
 
 ```text
 $ ./service-clone.sh -h
@@ -33,8 +39,8 @@ List of available options
 Need more help? Visit: https://github.com/smaeda-ks/fastly-service-clone
 ```
 
-### Command
+## Command
 
-```text
+```sh
 $ ./service-clone.sh -s ${source_service_id} -d ${destination_service_id}
 ```

@@ -5,12 +5,13 @@ set -o pipefail
 readonly VERSION='0.0.2'
 readonly API_BASE_URI='https://api.fastly.com'
 
-readonly API_TOKEN='your_api_token'
-
-if [[ -z "${API_TOKEN}" ]]; then
+if [[ -z "${FASTLY_API_TOKEN}" ]]; then
     echo "Please set your API token first."
+    echo "export FASTLY_API_TOKEN=\"your_api_token\""
     exit 1
 fi
+
+readonly API_TOKEN=${FASTLY_API_TOKEN}
 
 usage () {
     echo "Usage: ./service-clone.sh [OPTIONS]"
