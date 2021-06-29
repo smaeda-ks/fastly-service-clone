@@ -2,7 +2,7 @@
 
 set -o errexit
 set -o pipefail
-readonly VERSION='0.0.1'
+readonly VERSION='0.0.2'
 readonly API_BASE_URI='https://api.fastly.com'
 
 readonly API_TOKEN='your_api_token'
@@ -507,11 +507,29 @@ copy_loggings () {
         do  
             local object=$(jq ".[${i}]" <<< ${raw_loggigns})
             filter_objects "${object}"
+            logging_compression_check_codec "${global_filter_objects}"
 
-            local post_body=${global_filter_objects}
+            local post_body=${filter_logging_objects}
             curl -sS -o /dev/null -X POST --fail -H "fastly-key: ${API_TOKEN}" "${API_BASE_URI}/service/${dst_service}/version/${dst_version}/logging/${type}" -H "Content-Type: application/json" -d "${post_body}"
         done
     done   
+}
+
+filter_logging_objects=''
+logging_compression_check_codec() {
+    local readonly object=$1
+    local compression_codec=$(jq -r ".compression_codec" <<< ${object})
+    local gzip_level=$(jq -r ".gzip_level" <<< ${object})
+
+    if [[ "${compression_codec}" == "null" && "${gzip_level}" == "null" ]]; then
+        filter_logging_objects=${object}
+    elif [[ "${compression_codec}" != "null" ]]; then
+        filter_logging_objects=$(jq 'del(.gzip_level)' <<< ${object})
+    elif [[ "${gzip_level}" != "null" && "${gzip_level}" -gt "0" ]]; then
+        filter_logging_objects=$(jq 'del(.compression_codec)' <<< ${object})
+    else
+        filter_logging_objects=$(jq 'del(.compression_codec, .gzip_level)' <<< ${object})
+    fi
 }
 
 raw_domains=''
