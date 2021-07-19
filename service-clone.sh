@@ -523,12 +523,17 @@ logging_compression_check_codec() {
     local gzip_level=$(jq -r ".gzip_level" <<< ${object})
 
     if [[ "${compression_codec}" == "null" && "${gzip_level}" == "null" ]]; then
+        # for endpoints don't support compression
         filter_logging_objects=${object}
-    elif [[ "${compression_codec}" != "null" ]]; then
+    elif [[ "${compression_codec}" != "null" && "${compression_codec}" != "" ]]; then
+        # follow the original compression_codec
         filter_logging_objects=$(jq 'del(.gzip_level)' <<< ${object})
     elif [[ "${gzip_level}" != "null" && "${gzip_level}" -gt "0" ]]; then
+        # follow the original gzip_level
         filter_logging_objects=$(jq 'del(.compression_codec)' <<< ${object})
     else
+        # the endpoint doesn't have any custom compression setting
+        # remove them as they were supplied by API originally
         filter_logging_objects=$(jq 'del(.compression_codec, .gzip_level)' <<< ${object})
     fi
 }
