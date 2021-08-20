@@ -9,6 +9,9 @@ A shell script to copy service settings to another service.
 
 This script requires at least `curl` and `jq` commands to be available on your machine.
 
+NOTE: If you run this script on macOS please install `gnu-getopt`.
+https://formulae.brew.sh/formula/gnu-getopt
+
 ### API Token
 
 Please set `FASTLY_API_TOKEN` environment variable with your API token.
