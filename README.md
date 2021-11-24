@@ -50,7 +50,8 @@ $ ./service-clone.sh -s ${source_service_id} -d ${destination_service_id}
 
 # Limitations
 
-This tool does not copy over the following part of service settings.
+WASM services (Compute@Edge) are not supported.
+Also, this tool does not copy over the following part of service settings.
 
 1. custom pragma settings
 2. custom service limit (e.g., max domains, backends, etc)
